@@ -1,0 +1,931 @@
+{
+  "title": "Deployments",
+  "services": {
+    "query": {
+      "list": {
+        "0": {
+          "id": 0,
+          "color": "#7EB26D",
+          "alias": "complete",
+          "pin": true,
+          "type": "lucene",
+          "enable": true,
+          "query": "deploymentState:complete"
+        },
+        "1": {
+          "id": 1,
+          "color": "#EAB839",
+          "alias": "canceled",
+          "pin": true,
+          "type": "lucene",
+          "enable": true,
+          "query": "deploymentState:canceled"
+        },
+        "2": {
+          "id": 2,
+          "color": "#890F02",
+          "alias": "failed",
+          "pin": true,
+          "type": "lucene",
+          "enable": true,
+          "query": "deploymentState:failed"
+        },
+        "3": {
+          "id": 3,
+          "color": "#EF843C",
+          "alias": "active",
+          "pin": true,
+          "type": "lucene",
+          "enable": true,
+          "query": "deploymentState:active"
+        },
+        "4": {
+          "id": 4,
+          "color": "#E5A8E2",
+          "alias": "auto-replace",
+          "pin": true,
+          "type": "lucene",
+          "enable": true,
+          "query": "createdBy.keyword:oneops-autoreplace"
+        },
+        "5": {
+          "id": 5,
+          "color": "#1F78C1",
+          "alias": "retries",
+          "pin": true,
+          "type": "lucene",
+          "enable": true,
+          "query": "retryCount:>0"
+        },
+        "6": {
+          "id": 6,
+          "color": "#F9BA8F",
+          "alias": "unhealthy",
+          "pin": true,
+          "type": "lucene",
+          "enable": true,
+          "query": "ops=\"work\""
+        },
+        "7": {
+          "id": 7,
+          "color": "#3F6833",
+          "alias": "< 1m",
+          "pin": true,
+          "type": "lucene",
+          "enable": true,
+          "query": "activeDuration:[* TO 60]"
+        },
+        "8": {
+          "id": 8,
+          "color": "#7EB26D",
+          "alias": "1m to 5m",
+          "pin": true,
+          "type": "lucene",
+          "enable": true,
+          "query": "activeDuration:[61 TO 300]"
+        },
+        "9": {
+          "id": 9,
+          "color": "#CCA300",
+          "alias": "5m to 10m",
+          "pin": true,
+          "type": "lucene",
+          "enable": true,
+          "query": "activeDuration:[301 TO 600]"
+        },
+        "10": {
+          "id": 10,
+          "color": "#C15C17",
+          "alias": "10m to 20m",
+          "pin": true,
+          "type": "lucene",
+          "enable": true,
+          "query": "activeDuration:[601 TO 1200]"
+        },
+        "11": {
+          "id": 11,
+          "color": "#890F02",
+          "alias": "> 20m",
+          "pin": true,
+          "type": "lucene",
+          "enable": true,
+          "query": "activeDuration:[1201 TO *]"
+        }
+      },
+      "ids": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ]
+    },
+    "filter": {
+      "list": {
+        "0": {
+          "type": "time",
+          "field": "activeStartTS",
+          "from": "now-24h",
+          "to": "now",
+          "mandate": "must",
+          "active": true,
+          "alias": "",
+          "id": 0
+        }
+      },
+      "ids": [
+        0
+      ]
+    }
+  },
+  "rows": [
+    {
+      "title": "History",
+      "height": "250px",
+      "editable": true,
+      "collapse": false,
+      "collapsable": true,
+      "panels": [
+        {
+          "error": false,
+          "span": 3,
+          "editable": true,
+          "type": "column",
+          "loadingEditor": false,
+          "panels": [
+            {
+              "loading": false,
+              "error": false,
+              "sizeable": false,
+              "draggable": false,
+              "removable": false,
+              "span": 10,
+              "height": "250px",
+              "editable": true,
+              "type": "stats",
+              "mode": "count",
+              "field": "deploymentId",
+              "unit": "",
+              "format": "number",
+              "display_breakdown": "yes",
+              "queries": {
+                "mode": "selected",
+                "ids": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6
+                ]
+              },
+              "style": {
+                "font-size": "48pt"
+              },
+              "sort_field": "",
+              "sort_reverse": false,
+              "label_name": "State",
+              "value_name": "Counts",
+              "spyable": true,
+              "title": "Total"
+            }
+          ],
+          "title": "Counts"
+        },
+        {
+          "error": false,
+          "span": 4,
+          "editable": true,
+          "type": "column",
+          "loadingEditor": false,
+          "panels": [
+            {
+              "type": "stats",
+              "mode": "mean",
+              "field": "activeDuration",
+              "unit": "s",
+              "format": "float",
+              "display_breakdown": "no",
+              "height": "50px",
+              "queries": {
+                "mode": "pinned",
+                "ids": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11
+                ]
+              },
+              "style": {
+                "font-size": "24pt"
+              },
+              "sort_field": "",
+              "sort_reverse": false,
+              "label_name": "Active",
+              "value_name": "Value",
+              "spyable": false,
+              "title": "Active",
+              "span": 3
+            },
+            {
+              "loading": false,
+              "error": false,
+              "sizeable": false,
+              "draggable": false,
+              "removable": false,
+              "span": 10,
+              "height": "50px",
+              "editable": true,
+              "type": "stats",
+              "mode": "mean",
+              "field": "failedDuration",
+              "unit": "s",
+              "format": "float",
+              "display_breakdown": "no",
+              "queries": {
+                "mode": "all",
+                "ids": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11
+                ]
+              },
+              "style": {
+                "font-size": "24pt"
+              },
+              "sort_field": "",
+              "sort_reverse": false,
+              "label_name": "Query",
+              "value_name": "Value",
+              "spyable": true,
+              "title": "User Idle(Failed)"
+            },
+            {
+              "loading": false,
+              "error": false,
+              "sizeable": false,
+              "draggable": false,
+              "removable": false,
+              "span": 10,
+              "height": "50px",
+              "editable": true,
+              "type": "stats",
+              "mode": "mean",
+              "field": "pausedDuration",
+              "unit": "s",
+              "format": "number",
+              "queries": {
+                "mode": "all",
+                "ids": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11
+                ]
+              },
+              "style": {
+                "font-size": "24pt"
+              },
+              "display_breakdown": "no",
+              "sort_field": "",
+              "sort_reverse": false,
+              "label_name": "Query",
+              "value_name": "Value",
+              "spyable": true,
+              "title": "User Idle(paused)"
+            },
+            {
+              "loading": false,
+              "error": false,
+              "sizeable": false,
+              "draggable": false,
+              "removable": false,
+              "span": 10,
+              "height": "50px",
+              "editable": true,
+              "type": "stats",
+              "mode": "mean",
+              "field": "totalTime",
+              "unit": "s",
+              "format": "number",
+              "display_breakdown": "no",
+              "queries": {
+                "mode": "all",
+                "ids": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11
+                ]
+              },
+              "style": {
+                "font-size": "24pt"
+              },
+              "sort_field": "",
+              "sort_reverse": false,
+              "label_name": "Query",
+              "value_name": "Value",
+              "spyable": true,
+              "title": "Total(User Idle + Active)"
+            },
+            {
+              "loading": false,
+              "error": false,
+              "sizeable": false,
+              "draggable": false,
+              "removable": false,
+              "span": 10,
+              "height": "50px",
+              "editable": true,
+              "type": "stats",
+              "mode": "total",
+              "field": "retryCount",
+              "format": "number",
+              "display_breakdown": "no",
+              "queries": {
+                "mode": "all",
+                "ids": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11
+                ]
+              },
+              "style": {
+                "font-size": "24pt"
+              },
+              "sort_field": "",
+              "sort_reverse": false,
+              "label_name": "Query",
+              "value_name": "Value",
+              "spyable": true,
+              "title": "Total Retries"
+            }
+          ],
+          "title": "Duration"
+        }
+      ],
+      "notice": false
+    },
+    {
+      "title": "Stats",
+      "height": "350px",
+      "editable": true,
+      "collapse": false,
+      "collapsable": true,
+      "panels": [
+        {
+          "span": 3,
+          "editable": true,
+          "type": "hits",
+          "loadingEditor": false,
+          "style": {
+            "font-size": "10pt"
+          },
+          "arrangement": "horizontal",
+          "chart": "pie",
+          "counter_pos": "below",
+          "donut": false,
+          "tilt": false,
+          "labels": true,
+          "spyable": true,
+          "queries": {
+            "mode": "selected",
+            "ids": [
+              7,
+              8,
+              9,
+              10,
+              11
+            ]
+          },
+          "title": "Total Time"
+        },
+        {
+          "span": 9,
+          "editable": true,
+          "type": "histogram",
+          "loadingEditor": false,
+          "mode": "count",
+          "time_field": "activeStartTS",
+          "value_field": null,
+          "x-axis": true,
+          "y-axis": true,
+          "scale": 1,
+          "y_format": "none",
+          "grid": {
+            "max": null,
+            "min": 0
+          },
+          "queries": {
+            "mode": "selected",
+            "ids": [
+              7,
+              8,
+              9,
+              10,
+              11
+            ]
+          },
+          "annotate": {
+            "enable": false,
+            "query": "*",
+            "size": 20,
+            "field": "_type",
+            "sort": [
+              "_score",
+              "desc"
+            ]
+          },
+          "auto_int": true,
+          "resolution": 30,
+          "interval": "1h",
+          "intervals": [
+            "auto",
+            "1s",
+            "1m",
+            "5m",
+            "10m",
+            "30m",
+            "1h",
+            "3h",
+            "12h",
+            "1d",
+            "1w",
+            "1y"
+          ],
+          "lines": false,
+          "fill": 0,
+          "linewidth": 3,
+          "points": false,
+          "pointradius": 5,
+          "bars": true,
+          "stack": true,
+          "spyable": true,
+          "zoomlinks": true,
+          "options": true,
+          "legend": true,
+          "show_query": true,
+          "interactive": true,
+          "legend_counts": true,
+          "timezone": "browser",
+          "percentage": true,
+          "zerofill": false,
+          "derivative": false,
+          "tooltip": {
+            "value_type": "cumulative",
+            "query_as_alias": true
+          },
+          "title": "Total Time over Time"
+        }
+      ],
+      "notice": false
+    },
+    {
+      "title": "Stats",
+      "height": "350px",
+      "editable": true,
+      "collapse": false,
+      "collapsable": true,
+      "panels": [
+        {
+          "error": false,
+          "span": 3,
+          "editable": true,
+          "type": "terms",
+          "loadingEditor": false,
+          "field": "deploymentState",
+          "exclude": [],
+          "missing": false,
+          "other": false,
+          "size": 10,
+          "order": "count",
+          "style": {
+            "font-size": "10pt"
+          },
+          "donut": false,
+          "tilt": false,
+          "labels": true,
+          "arrangement": "horizontal",
+          "chart": "pie",
+          "counter_pos": "below",
+          "spyable": true,
+          "queries": {
+            "mode": "selected",
+            "ids": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ]
+          },
+          "tmode": "terms",
+          "tstat": "total",
+          "valuefield": "",
+          "title": "State"
+        },
+        {
+          "span": 9,
+          "editable": true,
+          "type": "histogram",
+          "loadingEditor": false,
+          "mode": "count",
+          "time_field": "activeStartTS",
+          "value_field": null,
+          "x-axis": true,
+          "y-axis": true,
+          "scale": 1,
+          "y_format": "none",
+          "grid": {
+            "max": null,
+            "min": 0
+          },
+          "queries": {
+            "mode": "selected",
+            "ids": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ]
+          },
+          "annotate": {
+            "enable": false,
+            "query": "dpmtRecordState",
+            "size": 20,
+            "field": "dpmtRecordState",
+            "sort": [
+              "_score",
+              "desc"
+            ]
+          },
+          "auto_int": true,
+          "resolution": 30,
+          "interval": "1h",
+          "intervals": [
+            "auto",
+            "1s",
+            "1m",
+            "5m",
+            "10m",
+            "30m",
+            "1h",
+            "3h",
+            "12h",
+            "1d",
+            "1w",
+            "1y"
+          ],
+          "lines": false,
+          "fill": 0,
+          "linewidth": 3,
+          "points": false,
+          "pointradius": 5,
+          "bars": true,
+          "stack": true,
+          "spyable": true,
+          "zoomlinks": true,
+          "options": true,
+          "legend": true,
+          "show_query": true,
+          "interactive": true,
+          "legend_counts": true,
+          "timezone": "browser",
+          "percentage": false,
+          "zerofill": true,
+          "derivative": false,
+          "tooltip": {
+            "value_type": "individual",
+            "query_as_alias": true
+          },
+          "title": "State Over Time",
+          "scaleSeconds": false
+        }
+      ],
+      "notice": false
+    },
+    {
+      "title": "Stats",
+      "height": "300px",
+      "editable": true,
+      "collapse": false,
+      "collapsable": true,
+      "panels": [
+        {
+          "error": false,
+          "span": 6,
+          "editable": true,
+          "type": "terms",
+          "loadingEditor": false,
+          "field": "createdBy.keyword",
+          "exclude": [],
+          "missing": false,
+          "other": false,
+          "size": 100,
+          "order": "count",
+          "style": {
+            "font-size": "10pt"
+          },
+          "donut": false,
+          "tilt": false,
+          "labels": true,
+          "arrangement": "horizontal",
+          "chart": "bar",
+          "counter_pos": "none",
+          "spyable": true,
+          "queries": {
+            "mode": "all",
+            "ids": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11
+            ]
+          },
+          "tmode": "terms",
+          "tstat": "total",
+          "valuefield": "",
+          "title": "Created By"
+        },
+        {
+          "error": false,
+          "span": 6,
+          "editable": true,
+          "type": "terms",
+          "loadingEditor": false,
+          "field": "nsPath.keyword",
+          "exclude": [],
+          "missing": false,
+          "other": false,
+          "size": 100,
+          "order": "count",
+          "style": {
+            "font-size": "10pt"
+          },
+          "donut": false,
+          "tilt": false,
+          "labels": false,
+          "arrangement": "horizontal",
+          "chart": "bar",
+          "counter_pos": "none",
+          "spyable": true,
+          "queries": {
+            "mode": "all",
+            "ids": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11
+            ]
+          },
+          "tmode": "terms",
+          "tstat": "total",
+          "valuefield": "",
+          "title": "nsPath"
+        }
+      ],
+      "notice": false
+    },
+    {
+      "title": "Counts",
+      "height": "250px",
+      "editable": true,
+      "collapse": true,
+      "collapsable": true,
+      "panels": [],
+      "notice": false
+    },
+    {
+      "title": "Documents",
+      "height": "150px",
+      "editable": true,
+      "collapse": false,
+      "collapsable": true,
+      "panels": [
+        {
+          "error": false,
+          "span": 12,
+          "editable": true,
+          "type": "table",
+          "loadingEditor": false,
+          "size": 10,
+          "pages": 10,
+          "offset": 0,
+          "sort": [
+            "activeDuration",
+            "desc"
+          ],
+          "overflow": "min-height",
+          "fields": [
+            "created",
+            "createdBy",
+            "deploymentState",
+            "nsPath",
+            "totalTime",
+            "activeDuration",
+            "failedDuration",
+            "pausedDuration",
+            "failureCnt",
+            "pauseCnt",
+            "retryCount",
+            "_id"
+          ],
+          "highlight": [],
+          "sortable": true,
+          "header": true,
+          "paging": true,
+          "field_list": false,
+          "all_fields": false,
+          "trimFactor": 300,
+          "localTime": false,
+          "timeField": "@timestamp",
+          "spyable": true,
+          "queries": {
+            "mode": "all",
+            "ids": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11
+            ]
+          },
+          "style": {
+            "font-size": "9pt"
+          },
+          "normTimes": true,
+          "title": "Documents"
+        }
+      ],
+      "notice": false
+    }
+  ],
+  "editable": true,
+  "failover": false,
+  "index": {
+    "interval": "none",
+    "pattern": "[logstash-]YYYY.MM.DD",
+    "default": "cms/deployment",
+    "warm_fields": false
+  },
+  "style": "dark",
+  "panel_hints": true,
+  "pulldowns": [
+    {
+      "type": "query",
+      "collapse": false,
+      "notice": false,
+      "enable": true,
+      "query": "*",
+      "pinned": true,
+      "history": [
+        "ops=\"work\"",
+        "retryCount:>0",
+        "createdBy:\"oneops-system\" OR createdBy:\"oneops-autoreplace\"AND NOT (nsPath.keyword=forge)",
+        "deploymentState:active",
+        "deploymentState:failed",
+        "deploymentState:canceled",
+        "deploymentState:complete",
+        "createdBy:\"oneops-system\" AND NOT (nsPath.keyword=forge)",
+        "createdBy:\"oneops-system\"",
+        "retryCount=3"
+      ],
+      "remember": 10
+    },
+    {
+      "type": "filtering",
+      "collapse": true,
+      "notice": true,
+      "enable": true
+    }
+  ],
+  "nav": [
+    {
+      "type": "timepicker",
+      "collapse": false,
+      "notice": false,
+      "enable": true,
+      "status": "Stable",
+      "time_options": [
+        "5m",
+        "15m",
+        "1h",
+        "6h",
+        "12h",
+        "24h",
+        "2d",
+        "7d",
+        "30d",
+        "60d"
+      ],
+      "refresh_intervals": [
+        "5s",
+        "10s",
+        "30s",
+        "1m",
+        "5m",
+        "15m",
+        "30m",
+        "1h",
+        "2h",
+        "1d"
+      ],
+      "timefield": "activeStartTS",
+      "now": true,
+      "filter_id": 0
+    }
+  ],
+  "loader": {
+    "save_gist": false,
+    "save_elasticsearch": true,
+    "save_local": true,
+    "save_default": true,
+    "save_temp": true,
+    "save_temp_ttl_enable": true,
+    "save_temp_ttl": "30d",
+    "load_gist": false,
+    "load_elasticsearch": true,
+    "load_elasticsearch_size": 20,
+    "load_local": false,
+    "hide": false
+  },
+  "refresh": "5m"
+}
